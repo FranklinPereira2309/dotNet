@@ -60,10 +60,19 @@ public class TaskManager
             Console.WriteLine("---------------------------------");
             for (int i = 0; i < tasks.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. Título: {tasks[i].Title}");
-                Console.WriteLine($"*. Descrição: {tasks[i].Description}");
-                Console.WriteLine($"*. Data: {tasks[i].DueDate.ToString("MM/dd/yyyy")}");
-                Console.WriteLine(" ");
+                if(tasks[i].IsCompleted){
+                    Console.WriteLine($"{i + 1}. Título: {tasks[i].Title}");
+                    Console.WriteLine($"*. Descrição: {tasks[i].Description}");
+                    Console.WriteLine($"*. Data: {tasks[i].DueDate.ToString("MM/dd/yyyy")}");
+                    Console.WriteLine($"*. Tarefa Completada [X]");
+                    Console.WriteLine(" ");
+                }else {
+                    Console.WriteLine($"{i + 1}. Título: {tasks[i].Title}");
+                    Console.WriteLine($"*. Descrição: {tasks[i].Description}");
+                    Console.WriteLine($"*. Data: {tasks[i].DueDate.ToString("MM/dd/yyyy")}");
+                    Console.WriteLine($"*. Tarefa Completada [ ]");
+                    Console.WriteLine(" ");
+                }
             }
             Console.WriteLine("----------------------------------");
         }
@@ -117,8 +126,9 @@ public class TaskManager
         }
         else
         {
+            Console.WriteLine("----------------------------------------------------------------------");
             Console.WriteLine($"Tasks matching the keyword '{keyword}':");
-            Console.WriteLine("---------------------------------");
+            Console.WriteLine("----------------------------------------------------------------------");
 
             foreach (Task matchingTask in matchingTasks)
             {
@@ -126,8 +136,30 @@ public class TaskManager
                 Console.WriteLine(" ");
             }
 
-            Console.WriteLine("---------------------------------");
+            Console.WriteLine("----------------------------------------------------------------------");
         }
+    }
+    public void ShowStatistics()
+    {
+        int totalTasks = tasks.Count;
+        int completedTasks = tasks.Count(task => task.IsCompleted);
+        int pendingTasks = totalTasks - completedTasks;
+
+        Console.WriteLine("-------- Estatísticas --------");
+        Console.WriteLine($"Total de Tarefas: {totalTasks}");
+        Console.WriteLine($"Tarefas Concluídas: {completedTasks}");
+        Console.WriteLine($"Tarefas Pendentes: {pendingTasks}");
+
+        if (completedTasks > 0)
+        {
+            DateTime oldestDueDate = tasks.Where(task => task.IsCompleted).Min(task => task.DueDate);
+            DateTime newestDueDate = tasks.Where(task => task.IsCompleted).Max(task => task.DueDate);
+
+            Console.WriteLine($"Tarefa Mais Antiga Concluída: {oldestDueDate.ToString("MM/dd/yyyy")}");
+            Console.WriteLine($"Tarefa Mais Recente Concluída: {newestDueDate.ToString("MM/dd/yyyy")}");
+        }
+
+        Console.WriteLine("-----------------------------");
     }
 }
 
@@ -147,7 +179,8 @@ class Program
             Console.WriteLine("5. Mark Task as Completed");
             Console.WriteLine("6. List Completed Tasks");
             Console.WriteLine("7. Search Tasks");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Mostrar Estatísticas");
+            Console.WriteLine("9. Exit");
             Console.Write("Enter your option: ");
             option = Convert.ToInt32(Console.ReadLine());
 
@@ -221,13 +254,17 @@ class Program
                     break;
 
                 case 8:
+                    {
+                        taskManager.ShowStatistics();
+                    }
+                    break;
+                case 9:
                     Console.WriteLine("Exiting...");
                     break;
-
                 default:
                     Console.WriteLine("Invalid option.");
                     break;
             }
-        } while (option != 7);
+        } while (option != 9);
     }
 }
