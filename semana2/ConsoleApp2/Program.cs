@@ -1,55 +1,55 @@
 ﻿using System;
 using System.ComponentModel;
 
-public class Task
+public class Tarefa
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public DateTime DueDate { get; set; }
-    public bool IsCompleted { get; set; }
+    public string Titulo { get; set; }
+    public string Descricao { get; set; }
+    public DateTime dData { get; set; }
+    public bool ehCompleta { get; set; }
 }
 
-public class TaskManager
+public class GerenciarTarefas
 {
-    private List<Task> tasks;
+    private List<Tarefa> tarefas;
 
-    public TaskManager()
+    public GerenciarTarefas()
     {
-        tasks = new List<Task>();
+        tarefas = new List<Tarefa>();
     }
 
-    public void AddTask(Task task)
+    public void AdicionarTarefa(Tarefa tarefa)
     {
-        tasks.Add(task);
+        tarefas.Add(tarefa);
     }
 
-    public void RemoveTask(int index)
+    public void RemoverTarefa(int indice)
     {
-        if (index >= 0 && index < tasks.Count)
+        if (indice >= 0 && indice < tarefas.Count)
         {
-            tasks.RemoveAt(index);
+            tarefas.RemoveAt(indice);
         }
         else
         {
-            Console.WriteLine("Invalid index.");
+            Console.WriteLine("Índice Inválido!");
         }
     }
 
-    public void UpdateTask(int index, Task updatedTask)
+    public void AtualizarTarefa(int indice, Tarefa tarefaAtualizada)
     {
-        if (index >= 0 && index < tasks.Count)
+        if (indice >= 0 && indice < tarefas.Count)
         {
-            tasks[index] = updatedTask;
+            tarefas[indice] = tarefaAtualizada;
         }
         else
         {
-            Console.WriteLine("Índice inválido!");
+            Console.WriteLine("Índice Inválido!");
         }
     }
 
-    public void ListTasks()
+    public void ListarTarefa()
     {
-        if (tasks.Count == 0)
+        if (tarefas.Count == 0)
         {
             Console.WriteLine("---------------------------------");
             Console.WriteLine("Nenhuma Tarefa encontrada.");
@@ -58,19 +58,19 @@ public class TaskManager
         else
         {
             Console.WriteLine("---------------------------------");
-            for (int i = 0; i < tasks.Count; i++)
+            for (int i = 0; i < tarefas.Count; i++)
             {
-                if(tasks[i].IsCompleted){
-                    Console.WriteLine($"{i + 1}. Título: {tasks[i].Title}");
-                    Console.WriteLine($"*. Descrição: {tasks[i].Description}");
-                    Console.WriteLine($"*. Data: {tasks[i].DueDate.ToString("MM/dd/yyyy")}");
-                    Console.WriteLine($"*. Tarefa Completada [X]");
+                if(tarefas[i].ehCompleta){
+                    Console.WriteLine($"{i + 1}. Título: {tarefas[i].Titulo}");
+                    Console.WriteLine($"-> Descrição: {tarefas[i].Descricao}");
+                    Console.WriteLine($"-> Data: {tarefas[i].dData.ToString("MM/dd/yyyy")}");
+                    Console.WriteLine($"-> Tarefa Completada [X]");
                     Console.WriteLine(" ");
                 }else {
-                    Console.WriteLine($"{i + 1}. Título: {tasks[i].Title}");
-                    Console.WriteLine($"*. Descrição: {tasks[i].Description}");
-                    Console.WriteLine($"*. Data: {tasks[i].DueDate.ToString("MM/dd/yyyy")}");
-                    Console.WriteLine($"*. Tarefa Completada [ ]");
+                    Console.WriteLine($"{i + 1}. Título: {tarefas[i].Titulo}");
+                    Console.WriteLine($"-> Descrição: {tarefas[i].Descricao}");
+                    Console.WriteLine($"-> Data: {tarefas[i].dData.ToString("MM/dd/yyyy")}");
+                    Console.WriteLine($"-> Tarefa Completada [ ]");
                     Console.WriteLine(" ");
                 }
             }
@@ -78,64 +78,64 @@ public class TaskManager
         }
     }
 
-    public void MarkTaskAsCompleted(int index)
+    public void MarcarCompleta(int indice)
     {
-        if (index >= 0 && index < tasks.Count)
+        if (indice >= 0 && indice < tarefas.Count)
         {
-            tasks[index].IsCompleted = true;
+            tarefas[indice].ehCompleta = true;
         }
         else
         {
-            Console.WriteLine("Invalid index.");
+            Console.WriteLine("Índice Inválido!");
         }
     }
-    public void SearchTasks(string keyword)
+    public void BuscarTarefa(string palavra)
     {
-        List<Task> matchingTasks = tasks
-            .Where(task => task.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                           task.Description.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+        List<Tarefa> tarefaEncontradas = tarefas
+            .Where(tarefa => tarefa.Titulo.Contains(palavra, StringComparison.OrdinalIgnoreCase) ||
+                            tarefa.Descricao.Contains(palavra, StringComparison.OrdinalIgnoreCase))
             .ToList();
 
-        if (matchingTasks.Count == 0)
+        if (tarefaEncontradas.Count == 0)
         {
-            Console.WriteLine($"Nenhuma busca encontrada para: '{keyword}'.");
+            Console.WriteLine($"Nenhuma busca encontrada para: '{palavra}'.");
         }
         else
         {
             Console.WriteLine("----------------------------------------------------------------------");
-            Console.WriteLine($"Palavra-chave digitada: '{keyword}':");
+            Console.WriteLine($"Palavra-chave digitada: '{palavra}':");
             Console.WriteLine("----------------------------------------------------------------------");
 
-            foreach (Task matchingTask in matchingTasks)
+            foreach (Tarefa tarefaEncontrada in tarefaEncontradas)
             {
-                Console.WriteLine($"Título: {matchingTask.Title}, Descrição: {matchingTask.Description}, Data: {matchingTask.DueDate.ToString("MM/dd/yyyy")}");
+                Console.WriteLine($"Título: {tarefaEncontrada.Titulo}, Descrição: {tarefaEncontrada.Descricao}, Data: {tarefaEncontrada.dData.ToString("MM/dd/yyyy")}");
                 Console.WriteLine(" ");
             }
 
             Console.WriteLine("----------------------------------------------------------------------");
         }
     }
-    public void ShowStatistics()
+    public void MostrarEstatistica()
     {
-        int totalTasks = tasks.Count;
-        int completedTasks = tasks.Count(task => task.IsCompleted);
-        int pendingTasks = totalTasks - completedTasks;
+        int totalTarefas = tarefas.Count;
+        int tarefasCompletadas = tarefas.Count(tarefas => tarefas.ehCompleta);
+        int tarefasPendentes = totalTarefas - tarefasCompletadas;
 
-        Console.WriteLine("-------- Estatísticas --------");
-        Console.WriteLine($"Total de Tarefas: {totalTasks}");
-        Console.WriteLine($"Tarefas Concluídas: {completedTasks}");
-        Console.WriteLine($"Tarefas Pendentes: {pendingTasks}");
+        Console.WriteLine("* --------> Estatísticas <-------- *");
+        Console.WriteLine($"Total de Tarefas: {totalTarefas}");
+        Console.WriteLine($"Tarefas Concluídas: {tarefasCompletadas}");
+        Console.WriteLine($"Tarefas Pendentes: {tarefasPendentes}");
 
-        if (completedTasks > 0)
+        if (tarefasCompletadas > 0)
         {
-            DateTime oldestDueDate = tasks.Where(task => task.IsCompleted).Min(task => task.DueDate);
-            DateTime newestDueDate = tasks.Where(task => task.IsCompleted).Max(task => task.DueDate);
+            DateTime datasAntigas = tarefas.Where(tarefas => tarefas.ehCompleta).Min(tarefas => tarefas.dData);
+            DateTime novasDatas = tarefas.Where(tarefas => tarefas.ehCompleta).Max(tarefas => tarefas.dData);
 
-            Console.WriteLine($"Tarefa Mais Antiga Concluída: {oldestDueDate.ToString("MM/dd/yyyy")}");
-            Console.WriteLine($"Tarefa Mais Recente Concluída: {newestDueDate.ToString("MM/dd/yyyy")}");
+            Console.WriteLine($"Tarefa Mais Antiga Concluída: {datasAntigas.ToString("MM/dd/yyyy")}");
+            Console.WriteLine($"Tarefa Mais Recente Concluída: {novasDatas.ToString("MM/dd/yyyy")}");
         }
 
-        Console.WriteLine("-----------------------------");
+        Console.WriteLine("----------------------------------");
     }
 }
 
@@ -143,12 +143,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        TaskManager taskManager = new TaskManager();
-        int option;
+        GerenciarTarefas gerenciaTarefa = new GerenciarTarefas();
+        int opcao;
 
         do
         {
-            Console.WriteLine("Menu de Opções");
+            Console.WriteLine("* ------> Menu de Opções <------ *");
+            Console.WriteLine("----------------------------------");
             Console.WriteLine("1. Adicionar Tarefas");
             Console.WriteLine("2. Remover Tarefas");
             Console.WriteLine("3. Atualizar Tarefas");
@@ -158,21 +159,21 @@ class Program
             Console.WriteLine("7. Mostrar Estatísticas");
             Console.WriteLine("8. Sair");
             Console.Write("Digite sua opção: ");
-            option = Convert.ToInt32(Console.ReadLine());
+            opcao = Convert.ToInt32(Console.ReadLine());
 
-            switch (option)
+            switch (opcao)
             {
                 case 1:
                     {
                         Console.Write("Digite o Título: ");
-                        string title = Console.ReadLine();
+                        string titulo = Console.ReadLine();
                         Console.Write("Digite a Descrição: ");
-                        string description = Console.ReadLine();
+                        string descricao = Console.ReadLine();
                         Console.Write("Digita a data (MM/dd/yyyy): ");
-                        DateTime dueDate = DateTime.Parse(Console.ReadLine());
+                        DateTime dData = DateTime.Parse(Console.ReadLine());
 
-                        Task task = new Task { Title = title, Description = description, DueDate = dueDate };
-                        taskManager.AddTask(task);
+                        Tarefa tarefa = new Tarefa { Titulo = titulo, Descricao = descricao, dData = dData };
+                        gerenciaTarefa.AdicionarTarefa(tarefa);
                         Console.WriteLine("Tarefa adicionada com Sucesso!");
                     }
                     break;
@@ -180,8 +181,8 @@ class Program
                 case 2:
                     {
                         Console.Write("REMOVER - Digite o índice: ");
-                        int index = Convert.ToInt32(Console.ReadLine());
-                        taskManager.RemoveTask(index);
+                        int indice = Convert.ToInt32(Console.ReadLine());
+                        gerenciaTarefa.RemoverTarefa(indice);
                         Console.WriteLine("Tarefa removida com Sucesso!");
                     }
                     break;
@@ -189,53 +190,55 @@ class Program
                 case 3:
                     {
                         Console.Write("ATUALIZAR - Digite o índice: ");
-                        int index = Convert.ToInt32(Console.ReadLine());
+                        int indice = Convert.ToInt32(Console.ReadLine());
                         Console.Write("Digite o título: ");
-                        string title = Console.ReadLine();
+                        string titulo = Console.ReadLine();
                         Console.Write("digite a descrição: ");
-                        string description = Console.ReadLine();
+                        string descricao = Console.ReadLine();
                         Console.Write("Digite a nova data (MM/dd/yyyy): ");
-                        DateTime dueDate = DateTime.Parse(Console.ReadLine());
+                        DateTime dData = DateTime.Parse(Console.ReadLine());
 
-                        Task updatedTask = new Task { Title = title, Description = description, DueDate = dueDate };
-                        taskManager.UpdateTask(index, updatedTask);
+                        Tarefa tarefaAtualizada = new Tarefa { Titulo = titulo, Descricao = descricao, dData = dData };
+                        gerenciaTarefa.AtualizarTarefa(indice, tarefaAtualizada);
                         Console.WriteLine("Tarefa atulizada com Sucesso!");
                     }
                     break;
 
                 case 4:
                     {
-                        taskManager.ListTasks();
+                        gerenciaTarefa.ListarTarefa();
                     }
                     break;
                 case 5:
                     {
                         Console.Write("TAREFAS COMPLETADAS - Digite o índice: ");
-                        int index = Convert.ToInt32(Console.ReadLine());
-                        taskManager.MarkTaskAsCompleted(index);
+                        int indice = Convert.ToInt32(Console.ReadLine());
+                        gerenciaTarefa.MarcarCompleta(indice);
+                        Console.WriteLine("------------------------------");
                         Console.WriteLine("Tarefa completada com Sucesso!");
+                        Console.WriteLine("------------------------------");
                     }
                     break;
                 case 6:
                     {
                         Console.Write("BUSCAR - Digite a palavra-chave: ");
-                        string keyword = Console.ReadLine();
-                        taskManager.SearchTasks(keyword);
+                        string palavra = Console.ReadLine();
+                        gerenciaTarefa.BuscarTarefa(palavra);
                     }
                     break;
 
                 case 7:
                     {
-                        taskManager.ShowStatistics();
+                        gerenciaTarefa.MostrarEstatistica();
                     }
                     break;
                 case 8:
-                    Console.WriteLine("Saindo...");
+                    Console.WriteLine("Até mais...Bye bye!");
                     break;
                 default:
                     Console.WriteLine("Opção Inválida!");
                     break;
             }
-        } while (option != 8);
+        } while (opcao != 8);
     }
 }
