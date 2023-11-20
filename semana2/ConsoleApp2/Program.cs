@@ -43,7 +43,7 @@ public class TaskManager
         }
         else
         {
-            Console.WriteLine("Invalid index.");
+            Console.WriteLine("Índice inválido!");
         }
     }
 
@@ -51,7 +51,9 @@ public class TaskManager
     {
         if (tasks.Count == 0)
         {
-            Console.WriteLine("No tasks found.");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Nenhuma Tarefa encontrada.");
+            Console.WriteLine("---------------------------------");
         }
         else
         {
@@ -97,9 +99,34 @@ public class TaskManager
 
                 foreach (Task completedTask in completedTasks)
                 {
-                    Console.WriteLine($"{completedTask.Title}. DueDate = {completedTask.DueDate.ToString("MM/dd/yyyy")}");
+                    Console.WriteLine($" Título: {completedTask.Title}, Data: {completedTask.DueDate.ToString("MM/dd/yyyy")}");
                 }            
             Console.WriteLine("----------------------------------");
+        }
+    }
+    public void SearchTasks(string keyword)
+    {
+        List<Task> matchingTasks = tasks
+            .Where(task => task.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                           task.Description.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (matchingTasks.Count == 0)
+        {
+            Console.WriteLine($"No tasks found with the keyword '{keyword}'.");
+        }
+        else
+        {
+            Console.WriteLine($"Tasks matching the keyword '{keyword}':");
+            Console.WriteLine("---------------------------------");
+
+            foreach (Task matchingTask in matchingTasks)
+            {
+                Console.WriteLine($"Título: {matchingTask.Title}, Descrição: {matchingTask.Description}, Data: {matchingTask.DueDate.ToString("MM/dd/yyyy")}");
+                Console.WriteLine(" ");
+            }
+
+            Console.WriteLine("---------------------------------");
         }
     }
 }
@@ -119,7 +146,8 @@ class Program
             Console.WriteLine("4. List Task");
             Console.WriteLine("5. Mark Task as Completed");
             Console.WriteLine("6. List Completed Tasks");
-            Console.WriteLine("7. Exit");
+            Console.WriteLine("7. Search Tasks");
+            Console.WriteLine("8. Exit");
             Console.Write("Enter your option: ");
             option = Convert.ToInt32(Console.ReadLine());
 
@@ -185,10 +213,16 @@ class Program
                     }
                     break;
                 case 7:
-
-                    Console.WriteLine("Exiting...");
+                    {
+                        Console.Write("Enter keyword to search for tasks: ");
+                        string keyword = Console.ReadLine();
+                        taskManager.SearchTasks(keyword);
+                    }
                     break;
 
+                case 8:
+                    Console.WriteLine("Exiting...");
+                    break;
 
                 default:
                     Console.WriteLine("Invalid option.");
