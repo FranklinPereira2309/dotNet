@@ -89,30 +89,6 @@ public class TaskManager
             Console.WriteLine("Invalid index.");
         }
     }
-
-    public void ListTasksCompleted()
-    {
-        if (tasks.Count == 0)
-        {
-            Console.WriteLine("No tasks found.");
-        }
-        else
-        {
-            Console.WriteLine("---------------------------------");
-            /*for (int i = 0; i < tasks.Count; i++)
-            {
-                string completedIndicator = tasks[i].IsCompleted ? "[Concluído] " : "";
-                Console.WriteLine($"{i + 1}. {completedIndicator}{tasks[i].Title}. DueDate = {tasks[i].DueDate.ToString("MM/dd/yyyy")}");
-            }*/
-            List<Task> completedTasks = tasks.Where(task => task.IsCompleted).ToList();
-
-                foreach (Task completedTask in completedTasks)
-                {
-                    Console.WriteLine($" Título: {completedTask.Title}, Data: {completedTask.DueDate.ToString("MM/dd/yyyy")}");
-                }            
-            Console.WriteLine("----------------------------------");
-        }
-    }
     public void SearchTasks(string keyword)
     {
         List<Task> matchingTasks = tasks
@@ -122,12 +98,12 @@ public class TaskManager
 
         if (matchingTasks.Count == 0)
         {
-            Console.WriteLine($"No tasks found with the keyword '{keyword}'.");
+            Console.WriteLine($"Nenhuma busca encontrada para: '{keyword}'.");
         }
         else
         {
             Console.WriteLine("----------------------------------------------------------------------");
-            Console.WriteLine($"Tasks matching the keyword '{keyword}':");
+            Console.WriteLine($"Palavra-chave digitada: '{keyword}':");
             Console.WriteLine("----------------------------------------------------------------------");
 
             foreach (Task matchingTask in matchingTasks)
@@ -172,58 +148,58 @@ class Program
 
         do
         {
-            Console.WriteLine("1. Add Task");
-            Console.WriteLine("2. Remove Task");
-            Console.WriteLine("3. Update Task");
-            Console.WriteLine("4. List Task");
-            Console.WriteLine("5. Mark Task as Completed");
-            Console.WriteLine("6. List Completed Tasks");
-            Console.WriteLine("7. Search Tasks");
-            Console.WriteLine("8. Mostrar Estatísticas");
-            Console.WriteLine("9. Exit");
-            Console.Write("Enter your option: ");
+            Console.WriteLine("Menu de Opções");
+            Console.WriteLine("1. Adicionar Tarefas");
+            Console.WriteLine("2. Remover Tarefas");
+            Console.WriteLine("3. Atualizar Tarefas");
+            Console.WriteLine("4. Listar Tarefas");
+            Console.WriteLine("5. Marcar Tarefas Completadas");
+            Console.WriteLine("6. Buscar Tarefas");
+            Console.WriteLine("7. Mostrar Estatísticas");
+            Console.WriteLine("8. Sair");
+            Console.Write("Digite sua opção: ");
             option = Convert.ToInt32(Console.ReadLine());
 
             switch (option)
             {
                 case 1:
                     {
-                        Console.Write("Enter Task Title: ");
+                        Console.Write("Digite o Título: ");
                         string title = Console.ReadLine();
-                        Console.Write("Enter Task Description: ");
+                        Console.Write("Digite a Descrição: ");
                         string description = Console.ReadLine();
-                        Console.Write("Enter Task Due Date (MM/dd/yyyy): ");
+                        Console.Write("Digita a data (MM/dd/yyyy): ");
                         DateTime dueDate = DateTime.Parse(Console.ReadLine());
 
                         Task task = new Task { Title = title, Description = description, DueDate = dueDate };
                         taskManager.AddTask(task);
-                        Console.WriteLine("Task added successfully.");
+                        Console.WriteLine("Tarefa adicionada com Sucesso!");
                     }
                     break;
 
                 case 2:
                     {
-                        Console.Write("Enter index of task to remove: ");
+                        Console.Write("REMOVER - Digite o índice: ");
                         int index = Convert.ToInt32(Console.ReadLine());
                         taskManager.RemoveTask(index);
-                        Console.WriteLine("Task removed successfully.");
+                        Console.WriteLine("Tarefa removida com Sucesso!");
                     }
                     break;
 
                 case 3:
                     {
-                        Console.Write("Enter index of task to update: ");
+                        Console.Write("ATUALIZAR - Digite o índice: ");
                         int index = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Enter new Task Title: ");
+                        Console.Write("Digite o título: ");
                         string title = Console.ReadLine();
-                        Console.Write("Enter new Task Description: ");
+                        Console.Write("digite a descrição: ");
                         string description = Console.ReadLine();
-                        Console.Write("Enter new Task Due Date (MM/dd/yyyy): ");
+                        Console.Write("Digite a nova data (MM/dd/yyyy): ");
                         DateTime dueDate = DateTime.Parse(Console.ReadLine());
 
                         Task updatedTask = new Task { Title = title, Description = description, DueDate = dueDate };
                         taskManager.UpdateTask(index, updatedTask);
-                        Console.WriteLine("Task updated successfully.");
+                        Console.WriteLine("Tarefa atulizada com Sucesso!");
                     }
                     break;
 
@@ -234,37 +210,32 @@ class Program
                     break;
                 case 5:
                     {
-                        Console.Write("Enter index of task to mark as completed: ");
+                        Console.Write("TAREFAS COMPLETADAS - Digite o índice: ");
                         int index = Convert.ToInt32(Console.ReadLine());
                         taskManager.MarkTaskAsCompleted(index);
-                        Console.WriteLine("Task marked as completed successfully.");
+                        Console.WriteLine("Tarefa completada com Sucesso!");
                     }
                     break;
                 case 6:
                     {
-                        taskManager.ListTasksCompleted();
-                    }
-                    break;
-                case 7:
-                    {
-                        Console.Write("Enter keyword to search for tasks: ");
+                        Console.Write("BUSCAR - Digite a palavra-chave: ");
                         string keyword = Console.ReadLine();
                         taskManager.SearchTasks(keyword);
                     }
                     break;
 
-                case 8:
+                case 7:
                     {
                         taskManager.ShowStatistics();
                     }
                     break;
-                case 9:
-                    Console.WriteLine("Exiting...");
+                case 8:
+                    Console.WriteLine("Saindo...");
                     break;
                 default:
-                    Console.WriteLine("Invalid option.");
+                    Console.WriteLine("Opção Inválida!");
                     break;
             }
-        } while (option != 9);
+        } while (option != 8);
     }
 }
