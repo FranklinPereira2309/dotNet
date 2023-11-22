@@ -1,11 +1,10 @@
 namespace produto;
 
 public class App {
-    public static List<Produto> AddProduto()
+    List<Produto> produtos = new List<Produto>();
+    public void AddProduto()
     {
-        List<Produto> produtos = new List<Produto>();
         string resposta = "s";
-        
 
         do 
         {
@@ -42,7 +41,40 @@ public class App {
 
         }while(resposta.ToLower() == "s");
 
-        return produtos;
+        
     }
+
+    public void buscarProduto() 
+    {       
+        Console.WriteLine("Digite o código do produto: ");
+        string codigoString = Console.ReadLine()!;
+        int codigo = int.Parse(codigoString);
+        for (int i = 0; i < produtos.Count(); i++)
+        {
+            try
+            {
+                var produto = produtos.FirstOrDefault(p => p.Codigo == codigo);
+                if(produto != null)
+                {
+                    Console.WriteLine("---------------------------------------------");
+                    Console.WriteLine($"Código: {produto.Codigo}");
+                    Console.WriteLine($"Nome: {produto.Nome}");
+                    Console.WriteLine($"Quantidade: {produto.Quantidade}");
+                    Console.WriteLine($"Preço: {produto.Preco}");
+                }else 
+                {
+                    Console.WriteLine("Produto não localizado");
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+            }
+        }
+    }
+
+    
+
+
 
 }
