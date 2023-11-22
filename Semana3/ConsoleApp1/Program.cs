@@ -15,6 +15,14 @@ public class Produto {
 
 public class CadastrarProdutos {
     public List<Produto> Produtos {get; set;}
+
+    public CadastrarProdutos() {
+        Produtos = new List<Produto>();
+    }
+
+    public void Cadastrar(Produto produto) {
+        Produtos.Add(produto);
+    }
 }
 
 
