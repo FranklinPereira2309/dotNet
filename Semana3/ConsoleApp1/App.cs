@@ -1,7 +1,12 @@
-namespace produto;
-public class App
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace produto
+{
+    public class App
     {
-        List<Produto> produtos = new List<Produto>();
+        private List<Produto> produtos = new List<Produto>();
 
         public void AddProduto()
         {
@@ -20,8 +25,8 @@ public class App
                     Console.WriteLine("Digite o preço unitário: ");
                     double preco = double.Parse(Console.ReadLine());
 
-                    Produto produto = new Produto(produtos.Count + 1, nome, quantidade, preco);
-                    produtos.Add(produto);
+                    Produto novoProduto = new Produto(produtos.Count + 1, nome, quantidade, preco);
+                    produtos.Add(novoProduto);
                 }
                 catch (FormatException)
                 {
@@ -54,17 +59,70 @@ public class App
                     Console.WriteLine("---------------------------------------------");
                     Console.WriteLine($"Código: {produto.Codigo}");
                     Console.WriteLine($"Nome: {produto.Nome}");
-                    Console.WriteLine($"Quantidade: {produto.Quantidade}");
-                    Console.WriteLine($"Preço: {produto.Preco}");
+                    Console.WriteLine($"Quantidade: {produto.QuantidadeEmEstoque}");
+                    Console.WriteLine($"Preço: {produto.PrecoUnitario}");
+                    Console.WriteLine("-----------------------------------------------------------------");
                 }
                 else
                 {
+                    Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("Produto não localizado");
+                    Console.WriteLine("-----------------------------------------------------------------");
                 }
             }
             else
             {
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("Código inválido. Digite um número inteiro.");
+                Console.WriteLine("-----------------------------------------------------------------");
+            }
+        }
+
+        public void AdicionarEstoque(int codigoProduto, int quantidade)
+        {
+            Produto produto = produtos.FirstOrDefault(p => p.Codigo == codigoProduto);
+
+            if (produto != null)
+            {
+                produto.QuantidadeEmEstoque += quantidade;
+                Console.WriteLine("-----------------------------------------------------------------");
+                Console.WriteLine($"Estoque atualizado. Nova quantidade em estoque: {produto.QuantidadeEmEstoque}");
+                Console.WriteLine("-----------------------------------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("-----------------------------------------------------------------");
+                Console.WriteLine("Produto não encontrado.");
+                Console.WriteLine("-----------------------------------------------------------------");
+            }
+        }
+
+        public void RemoverEstoque(int codigoProduto, int quantidade)
+        {
+            Produto produto = produtos.FirstOrDefault(p => p.Codigo == codigoProduto);
+
+            if (produto != null)
+            {
+                if (produto.QuantidadeEmEstoque >= quantidade)
+                {
+                    produto.QuantidadeEmEstoque -= quantidade;
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine($"Estoque atualizado. Nova quantidade em estoque: {produto.QuantidadeEmEstoque}");
+                    Console.WriteLine("-----------------------------------------------------------------");
+                }
+                else
+                {
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine("Quantidade insuficiente em estoque para realizar a saída.");
+                    Console.WriteLine("-----------------------------------------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("-----------------------------------------------------------------");
+                Console.WriteLine("Produto não encontrado.");
+                Console.WriteLine("-----------------------------------------------------------------");
             }
         }
     }
+}
