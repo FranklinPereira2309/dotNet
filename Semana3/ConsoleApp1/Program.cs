@@ -6,7 +6,7 @@ CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
 App app = new App();
 
 
-app.buscarProduto();
+
 
 /*foreach (Produto produto in produtos)
 

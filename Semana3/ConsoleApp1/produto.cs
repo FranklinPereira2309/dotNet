@@ -1,23 +1,22 @@
-namespace produto 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace produto
 {
+    public class Produto
+    {
+        public int Codigo { get; set; }
+        public string Nome { get; set; }
+        public int Quantidade { get; set; }
+        public double Preco { get; set; }
 
-public class Produto {
-    public int Codigo {get; set;}
-    public int CodId {get; set;} = 1;
-    public string Nome {get; set;}
-    public int Quantidade {get; set;}
-    public double Preco {get; set;}
-
-    public Produto(string _nome, int _quantidade, double _preco) {
-        Codigo = CodId++;
-        Nome = _nome;
-        Quantidade = _quantidade;
-        Preco = _preco;
+        public Produto(int codigo, string nome, int quantidade, double preco)
+        {
+            Codigo = codigo;
+            Nome = nome;
+            Quantidade = quantidade;
+            Preco = preco;
+        }
     }
 }
-    
-}
-
-
-
-
