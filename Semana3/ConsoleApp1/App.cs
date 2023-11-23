@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace produto
 {
@@ -14,15 +15,15 @@ namespace produto
 
             do
             {
-                Console.WriteLine("Digite o nome do produto: ");
+                Console.Write("Digite o nome do produto: ");
                 string nome = Console.ReadLine();
 
                 try
                 {
-                    Console.WriteLine("Informe a quantidade em estoque: ");
+                    Console.Write("Informe a quantidade em estoque: ");
                     int quantidade = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Digite o preço unitário: ");
+                    Console.Write("Digite o preço unitário: ");
                     double preco = double.Parse(Console.ReadLine());
 
                     Produto novoProduto = new Produto(produtos.Count + 1, nome, quantidade, preco);
@@ -38,14 +39,14 @@ namespace produto
                 }
                 finally
                 {
-                    Console.WriteLine("Deseja continuar? (s/n): ");
+                    Console.Write("Deseja continuar? (s/n): ");
                     resposta = Console.ReadLine()?.ToLower();
                 }
 
             } while (resposta == "s");
         }
 
-        public void BuscarProduto()
+        public void BuscarPorCodigo()
         {
             Console.WriteLine("Digite o código do produto: ");
             string codigoString = Console.ReadLine();
@@ -75,6 +76,17 @@ namespace produto
                 Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("Código inválido. Digite um número inteiro.");
                 Console.WriteLine("-----------------------------------------------------------------");
+            }
+        }
+
+        public void BuscarTodos() {
+            foreach (var produto in produtos)
+            {
+                Console.WriteLine("---------------------------------------------");
+                Console.WriteLine("Código: " + produto.Codigo);
+                Console.WriteLine("Nome: " + produto.Nome);
+                Console.WriteLine("Qauntidade: " + produto.QuantidadeEmEstoque);
+                Console.WriteLine("Preço: " + produto.PrecoUnitario);
             }
         }
 
@@ -122,6 +134,90 @@ namespace produto
                 Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("Produto não encontrado.");
                 Console.WriteLine("-----------------------------------------------------------------");
+            }
+        }
+
+        public void RelatorioQuantidadeAbaixoLimite()
+        {
+            Console.Write("Digite o limite de quantidade em estoque: ");
+            if (int.TryParse(Console.ReadLine(), out int limite))
+            {
+                var produtosAbaixoLimite = produtos.Where(p => p.QuantidadeEmEstoque < limite);
+
+                Console.WriteLine("Produtos com quantidade em estoque abaixo do limite:");
+                foreach (var produto in produtosAbaixoLimite)
+                {
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine($"Nome: {produto.Nome}, Quantidade: {produto.QuantidadeEmEstoque}");
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("-----------------------------------------------------------------");
+                Console.WriteLine("Limite inválido. Digite um número inteiro.");
+                Console.WriteLine("-----------------------------------------------------------------");
+            }
+        }
+        
+        public void RelatorioValorEntreMinMax()
+        {
+            Console.WriteLine("Digite o valor mínimo: ");
+            if (int.TryParse(Console.ReadLine(), out int min))
+            {
+                Console.WriteLine("Digite o valor máximo: ");
+                if (int.TryParse(Console.ReadLine(), out int max))
+                {
+                    var produtosEntreMinMax = produtos.Where(p => p.QuantidadeEmEstoque >= min && p.QuantidadeEmEstoque <= max);
+
+                    if (produtosEntreMinMax.Any())
+                    {
+                        Console.WriteLine("Produtos com valor entre o mínimo e o máximo:");
+                        foreach (var produto in produtosEntreMinMax)
+                        {
+                            Console.WriteLine("-----------------------------------------------------------------");
+                            Console.WriteLine($"Nome: {produto.Nome}, Preço: {produto.PrecoUnitario}, Estoque: {produto.QuantidadeEmEstoque}");
+                            
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        Console.WriteLine("Nenhum produto encontrado com valor entre o mínimo e o máximo.");
+                        Console.WriteLine("-----------------------------------------------------------------");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine("Valor máximo inválido. Digite um número inteiro.");
+                    Console.WriteLine("-----------------------------------------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("-----------------------------------------------------------------");
+                Console.WriteLine("Valor mínimo inválido. Digite um número inteiro.");
+                Console.WriteLine("-----------------------------------------------------------------");
+            }
+        }
+
+ 
+
+        public void RelatorioValorTotalEstoque()
+        {
+            double valorTotalEstoque = produtos.Sum(p => p.PrecoUnitario * p.QuantidadeEmEstoque);
+
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine($"Valor total do estoque: {valorTotalEstoque}");
+            Console.WriteLine("-----------------------------------------------------------------");
+
+            Console.WriteLine("Valor total de cada produto de acordo com seu estoque:");
+            foreach (var produto in produtos)
+            {
+                double valorTotalProduto = produto.PrecoUnitario * produto.QuantidadeEmEstoque;
+                Console.WriteLine("-----------------------------------------------------------------");
+                Console.WriteLine($"Nome: {produto.Nome}, Valor Total: {valorTotalProduto}");
             }
         }
     }
