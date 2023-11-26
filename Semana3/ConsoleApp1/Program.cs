@@ -42,7 +42,7 @@ do{
     {
         Console.WriteLine("ADICIONAR - Digite o código: ");
         int codigo = int.Parse(Console.ReadLine()!);
-        Console.WriteLine("ADICIONAR - Digite o estoque: ");
+        Console.WriteLine("ADICIONAR - Digite a quantidade a ser ADICIONADA ao estoque: ");
         int estoque = int.Parse(Console.ReadLine()!);
         app.AdicionarEstoque(codigo,estoque);
     }
@@ -50,7 +50,7 @@ do{
     {
         Console.WriteLine("REMOVER - Digite o código: ");
         int codigo = int.Parse(Console.ReadLine()!);
-        Console.WriteLine("REMOVER - Digite o estoque: ");
+        Console.WriteLine("REMOVER - Digite a quantidade a ser REMOVIDA do estoque: ");
         int estoque = int.Parse(Console.ReadLine()!);
         app.RemoverEstoque(codigo,estoque);
     }
