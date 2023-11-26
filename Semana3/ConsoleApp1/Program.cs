@@ -20,14 +20,14 @@ do{
     Console.WriteLine("6- Rel. Qtd Abaixo Limite");
     Console.WriteLine("7- Rel. Máx e Mín");
     Console.WriteLine("8- Rel. Valores(R$) em Estoque");
-    Console.WriteLine("10- Sair");
+    Console.WriteLine("9- Sair");
     Console.WriteLine("-----------------------");
     Console.Write("Escolha um opção: ");
     opcao = int.Parse(Console.ReadLine()!);
 
     if (opcao == 1) 
     {
-        app.AddProduto();
+        app.AdicionarProduto();
 
     }
     else if(opcao == 2)
@@ -66,21 +66,9 @@ do{
     {
         app.RelatorioValorTotalEstoque();
     }
-    else if(opcao == 10)
+    else if(opcao == 9)
     {
-        Console.WriteLine("Até log... bye bye!!");
+        Console.WriteLine("Programa Concluído com sucesso!!");
     }
 
-}while(opcao != 10);
-
-
-
-/*foreach (Produto produto in produtos)
-
-{
-    Console.WriteLine($"Código: {produto.CodId}");
-    Console.WriteLine($"Produto: {produto.Nome}");
-    Console.WriteLine($"Quantidade: {produto.Quantidade}");
-    Console.WriteLine($"Preço: {produto.Preco}"); 
-}*/
-
+}while(opcao != 9);

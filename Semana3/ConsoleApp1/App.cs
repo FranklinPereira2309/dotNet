@@ -9,7 +9,7 @@ namespace produto
     {
         private List<Produto> produtos = new List<Produto>();
 
-        public void AddProduto()
+        public void AdicionarProduto()
         {
             string resposta = "s";
 
@@ -61,7 +61,7 @@ namespace produto
                     Console.WriteLine($"Código: {produto.Codigo}");
                     Console.WriteLine($"Nome: {produto.Nome}");
                     Console.WriteLine($"Quantidade: {produto.QuantidadeEmEstoque}");
-                    Console.WriteLine($"Preço: {produto.PrecoUnitario}");
+                    Console.WriteLine($"Preço: R$ {produto.PrecoUnitario.ToString("F2")}");
                     Console.WriteLine("-----------------------------------------------------------------");
                 }
                 else
@@ -86,7 +86,7 @@ namespace produto
                 Console.WriteLine("Código: " + produto.Codigo);
                 Console.WriteLine("Nome: " + produto.Nome);
                 Console.WriteLine("Qauntidade: " + produto.QuantidadeEmEstoque);
-                Console.WriteLine("Preço: " + produto.PrecoUnitario);
+                Console.WriteLine("Preço: R$ " + produto.PrecoUnitario.ToString("F2"));
             }
         }
 
@@ -176,7 +176,7 @@ namespace produto
                         foreach (var produto in produtosEntreMinMax)
                         {
                             Console.WriteLine("-----------------------------------------------------------------");
-                            Console.WriteLine($"Nome: {produto.Nome}, Preço: {produto.PrecoUnitario}, Estoque: {produto.QuantidadeEmEstoque}");
+                            Console.WriteLine($"Nome: {produto.Nome}, Preço: R$ {produto.PrecoUnitario.ToString("F2")}, Estoque: {produto.QuantidadeEmEstoque}");
                             
                         }
                     }
@@ -209,15 +209,18 @@ namespace produto
             double valorTotalEstoque = produtos.Sum(p => p.PrecoUnitario * p.QuantidadeEmEstoque);
 
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine($"Valor total do estoque: {valorTotalEstoque}");
+            Console.WriteLine(" ");
+            Console.WriteLine($"Valor total do estoque: R$ {valorTotalEstoque.ToString("F2")}");
+            Console.WriteLine(" ");
+            
             Console.WriteLine("-----------------------------------------------------------------");
-
             Console.WriteLine("Valor total de cada produto de acordo com seu estoque:");
+            Console.WriteLine(" ");
             foreach (var produto in produtos)
             {
                 double valorTotalProduto = produto.PrecoUnitario * produto.QuantidadeEmEstoque;
                 Console.WriteLine("-----------------------------------------------------------------");
-                Console.WriteLine($"Nome: {produto.Nome}, Valor Total: {valorTotalProduto}");
+                Console.WriteLine($"{produto.Codigo}. - Nome: {produto.Nome}, Valor Total: R$ {valorTotalProduto.ToString("F2")}");
             }
         }
     }
