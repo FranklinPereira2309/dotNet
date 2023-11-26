@@ -23,20 +23,38 @@ namespace produto
                     Console.Write("Informe a quantidade em estoque: ");
                     int quantidade = int.Parse(Console.ReadLine());
 
+                    if(quantidade < 0) {
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        Console.WriteLine("A quantidade em estoque NÃO deve ser negativa!");
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        continue;
+                    }
+
                     Console.Write("Digite o preço unitário: ");
                     double preco = double.Parse(Console.ReadLine());
+
+                    if(preco < 0) {
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        Console.WriteLine("O preço NÃO deve ser negativo!");
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        continue;
+                    }
 
                     Produto novoProduto = new Produto(produtos.Count + 1, nome, quantidade, preco);
                     produtos.Add(novoProduto);
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("A quantidade em estoque deve ser um número inteiro.");
+                    Console.WriteLine("-------------------------------------------------------------------------");
+                    Console.WriteLine("Os valores digitados em Estoque e Quantidade devem ser um número inteiro.");
+                    Console.WriteLine("-------------------------------------------------------------------------");
                 }
-                catch (OverflowException)
+                /*catch (OverflowException)
                 {
+                    Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("A quantidade é muito grande ou muito pequena para ser armazenada.");
-                }
+                    Console.WriteLine("-----------------------------------------------------------------");
+                }*/
                 finally
                 {
                     Console.Write("Deseja continuar? (s/n): ");
