@@ -18,7 +18,7 @@ class ContaBancaria
         }
     }
 
-    // Outros membros e métodos da classe podem ser adicionados conforme necessário
+    
 }
 
 class Program
@@ -26,15 +26,12 @@ class Program
     static void Main()
     {
         ContaBancaria minhaConta = new ContaBancaria();
-
-        // Testando a definição de saldo positivo
-        minhaConta.Saldo = 1000.00;
-        Console.WriteLine($"Saldo atual: {minhaConta.Saldo}");
-
-        // Tentando definir um saldo negativo (deve lançar uma exceção)
+        
         try
         {
-            minhaConta.Saldo = -500.00;
+            Console.WriteLine("Digite Saldo: ");
+            minhaConta.Saldo = Double.Parse(Console.ReadLine()!);
+            Console.WriteLine($"Saldo atual: {minhaConta.Saldo}");
         }
         catch (ArgumentException ex)
         {

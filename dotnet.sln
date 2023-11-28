@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Semana4", "Semana4", "{23AD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "Semana4\ConsoleApp1\ConsoleApp1.csproj", "{102F725B-8584-48E4-8DEA-133391A560DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Semana4Aula1", "Semana4Aula1", "{5F71BFB6-B507-40E7-9B3F-F86E2A5D4CA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "Semana4Aula1\ConsoleApp1\ConsoleApp1.csproj", "{1279BD39-1B00-437E-A401-A07CEECC8334}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{102F725B-8584-48E4-8DEA-133391A560DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102F725B-8584-48E4-8DEA-133391A560DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{102F725B-8584-48E4-8DEA-133391A560DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1279BD39-1B00-437E-A401-A07CEECC8334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1279BD39-1B00-437E-A401-A07CEECC8334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1279BD39-1B00-437E-A401-A07CEECC8334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1279BD39-1B00-437E-A401-A07CEECC8334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +55,7 @@ Global
 		{5BEB8019-D133-4472-B237-BE14998FB780} = {FC0FEE45-2E51-407E-ABFE-62C88C0AD2EC}
 		{599AF37A-9B60-45DD-A697-DEDCF986629D} = {6B0BDEE0-6F6A-4B38-8476-1DC9B17C3A3B}
 		{102F725B-8584-48E4-8DEA-133391A560DA} = {23ADD9C2-9B7B-4F41-9F2D-C0892562C184}
+		{1279BD39-1B00-437E-A401-A07CEECC8334} = {5F71BFB6-B507-40E7-9B3F-F86E2A5D4CA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E6007DD-2B19-4592-804F-5BB8BBB1EB07}
